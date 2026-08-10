@@ -1,15 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
+  try {
+    // ⚠️ REPLACE THIS STRING WITH YOUR ACTUAL MONGODB LINK FROM MONGO ATLAS
+    const connStr = "YOUR_ACTUAL_MONGODB_CONNECTION_STRING_HERE";
 
-        console.log("✅ MongoDB Connected Successfully");
-    } catch (error) {
-        console.log("❌ MongoDB Connection Failed");
-        console.log(error.message);
-        process.exit(1);
-    }
+    const conn = await mongoose.connect(connStr);
+    console.log(`🌱 MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    process.exit(1); 
+  }
 };
 
 module.exports = connectDB;

@@ -3,31 +3,21 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 
-// Connect Database
-connectDB();
+const authRoutes = require("./routes/authRoutes");
+const complaintRoutes = require("./routes/complaintRoutes");
 
 const app = express();
+
+// Connect Database
+connectDB();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Import Controller Functions (Curly Brace Style)
-const { registerUser, loginUser } = require("./controllers/authControllers");
-const { createComplaint } = require("./controllers/complaintControllers");
-
-// Set Up Express Routers
-const authRouter = express.Router();
-const complaintRouter = express.Router();
-
-// Assign Functions to Routes
-authRouter.post("/register", registerUser);
-authRouter.post("/login", loginUser);
-complaintRouter.post("/", createComplaint);
-
-// Mount Routers to Endpoint Paths
-app.use("/api/auth", authRouter);
-app.use("/api/complaints", complaintRouter);
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/complaints", complaintRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
@@ -37,5 +27,5 @@ app.get("/", (req, res) => {
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
