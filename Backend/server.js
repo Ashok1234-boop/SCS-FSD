@@ -3,8 +3,9 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 
-const authRoutes = require("./routes/authRoutes");
-const complaintRoutes = require("./routes/complaintRoutes");
+// Corrected paths to match your actual files in the controllers folder
+const authRoutes = require("./controllers/authController");
+const complaintRoutes = require("./controllers/complaintController");
 
 const app = express();
 
